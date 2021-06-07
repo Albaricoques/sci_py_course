@@ -1,0 +1,30 @@
+import os
+
+def gen(wildcards):
+  return(['output/'+i for i in os.listdir('input') if not i.startswith('.')])
+
+def unique(list1):
+    unique_list = []
+    for x in list1:
+        if x not in unique_list:
+            unique_list.append(x)
+    return(unique_list)
+    
+rule all:
+  input: gen
+  output: ".status"
+  shell: "touch {output}"
+  
+rule count_chars:
+  input: "input/{file}"
+  output: "output/{file}"
+  run:
+    for inp in range(len(input)):
+      with open(input[inp]) as f:
+        lines = f.read().strip() .lower().replace(' ', '').replace('.', '').replace('\n', '')
+        ans = list()
+        for k in unique(sorted(lines)):
+          ans.append('{}: {}\n'.format(k, lines.count(k)))
+        with open(output[inp], "a") as out:
+          for i in ans:
+            out.write(i)
