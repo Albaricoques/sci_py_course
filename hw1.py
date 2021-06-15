@@ -14,7 +14,7 @@ LKTVQGGISSTAAMGKGVTEEQFKESWTRPGADGMGEGTSLVVAKSRM"""
 
 seq = seq.replace("\n", "")
 
-isocitrate_lyase_pattern = r"K[K,R]CGH[L,M,Q,R]"
+isocitrate_lyase_pattern = r"K[KR]CGH[LMQR]"
 
 x = re.search(isocitrate_lyase_pattern, seq)
 
